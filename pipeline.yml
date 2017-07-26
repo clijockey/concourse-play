@@ -12,6 +12,7 @@ jobs:
   plan:
   - get: docker-dev-image
   - get: github
+    trigger: true
   - task: compose-test
     image: docker-dev-image
     config:
