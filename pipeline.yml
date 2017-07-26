@@ -20,7 +20,7 @@ jobs:
       inputs:
       - name: github
       run:
-        path: github/task.sh
+        path: task.sh
 
 resources:
 - name: github
