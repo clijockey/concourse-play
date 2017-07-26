@@ -8,9 +8,28 @@ jobs:
   - task: commit
     file: github/task.yml
 
+- name: pull-docker-dev-image
+  plan:
+  - get: docker-dev-image
+  - get: github
+  - task: compose-test
+    image: docker-dev-image
+    config:
+      platform: linux
+      inputs:
+      - name: github
+      run:
+        path: github/task.sh
+
 resources:
 - name: github
   type: git
   source:
-    uri: https://github.com/EngineerBetter/cf-openstack-validator.git
+    uri: https://github.com/clijockey/concourse-play.git
     branch: master
+
+- name: docker-dev-image
+  type: docker-image
+  source:
+    repository: docker-dev
+
