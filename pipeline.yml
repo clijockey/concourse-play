@@ -13,20 +13,29 @@ jobs:
   - get: docker-dev-image
   - get: github
     trigger: true
+  - get: coffee
+    trigger: true
   - task: compose-test
     image: docker-dev-image
     config:
       platform: linux
       inputs:
       - name: github
+      - name: coffee
       run:
-        path: task.sh
+        path: github/task.sh
 
 resources:
 - name: github
   type: git
   source:
     uri: https://github.com/clijockey/concourse-play.git
+    branch: master
+
+- name: coffee
+  type: git
+  source:
+    uri: https://github.com/clijockey/vote-app-flask.git
     branch: master
 
 - name: docker-dev-image
